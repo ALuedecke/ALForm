@@ -172,6 +172,7 @@ namespace ALOra
                 if (header)
                 {
                     rows += row.Replace(":COLS:", heads);
+                    header = false;
                 }
 
                 rows += row.Replace(":COLS:", cols);
