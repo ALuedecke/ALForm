@@ -53,9 +53,6 @@
     <Compile Include="ALForm.Designer.cs">
       <DependentUpon>ALForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Credentials.cs" />
-    <Compile Include="ICredentials.cs" />
-    <Compile Include="OraDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ALForm.resx">
@@ -82,6 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ALOra\ALOra.csproj">
+      <Project>{c31cf712-e6fc-4346-9be5-126556afcc1e}</Project>
+      <Name>ALOra</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

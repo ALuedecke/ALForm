@@ -5,7 +5,7 @@ using Oracle.DataAccess.Client;
 
 namespace ALOra
 {
-    class OraDB : IOraDB
+    public class OraDB : IOraDB
     {
         /* Class members */
         private Credentials mCredendials = new Credentials();
@@ -148,16 +148,36 @@ namespace ALOra
 
         public string getHtml(DataTable pDataTbl)
         {
+            bool   header = true;
             string col = "\n    <td>:VALUE:</td>";
             string cols;
+            string heads = "";
             string row = "\n  <tr>\n:COLS:</tr>";
-            string rows;
+            string rows = "";
             string table = "<table>:ROWS:\n</table>";
 
-            for ( int r = 0; r < pDataTbl.Rows.Count; r++ )
+            foreach (DataRow r in pDataTbl.Rows)
             {
-                // to do
+                cols = "";
+                foreach (DataColumn c in pDataTbl.Columns)
+                {
+                    if (header)
+                    {
+                        heads += col.Replace(":VALUE:", c.ColumnName);
+                    }
+
+                    cols += col.Replace(":VALUE:", r[c].ToString());
+                }
+
+                if (header)
+                {
+                    rows += row.Replace(":COLS:", heads);
+                }
+
+                rows += row.Replace(":COLS:", cols);
             }
+
+            table = table.Replace(":ROWS:", rows);
 
             return table;
         }

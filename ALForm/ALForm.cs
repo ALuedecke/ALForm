@@ -1,5 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using ALOra;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -33,9 +33,10 @@ namespace ALForm
         private void fillGrid(string pSql)
         {
             OraDB oradb = new OraDB("pi01_12_PROD", "tina_user", "T73N65_u115e114#");
+            string html;
 
             tsProgBar.Value = 0;
-            tsLabel.Text = oradb.UserId + "@" + oradb.DataSource;
+            tsLabel.Text = oradb.Credentials.UserId + "@" + oradb.Credentials.DataSource;
             statStrip.Refresh();
 
             try
@@ -43,6 +44,7 @@ namespace ALForm
                 dgvData.DataSource = oradb.runQuery(pSql);
                 dgvData.ReadOnly = true;
                 dgvData.Refresh();
+                html = oradb.getHtml(oradb.runQuery(pSql));
 
                 for (int i = 0; i < dgvData.RowCount; i++)
                 {
