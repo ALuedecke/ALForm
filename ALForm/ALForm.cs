@@ -18,6 +18,9 @@ namespace ALForm
         private int mDgvWidth;
         private int mDgvHeight;
         private int mRtxtWidth;
+        private int mRtxtHeight;
+        private int mSplWidth;
+        private int mSplHeight;
 
         public ALForm()
         {
@@ -28,6 +31,9 @@ namespace ALForm
             mDgvWidth = Width - dgvData.Width;
             mDgvHeight = Height - dgvData.Height;
             mRtxtWidth = Width - rtxtQuery.Width;
+            mRtxtHeight = splitContainer.SplitterDistance - rtxtQuery.Height;
+            mSplWidth = Width - splitContainer.Width;
+            mSplHeight = Height - splitContainer.Height;
         }
 
         private void fillGrid(string pSql)
@@ -37,9 +43,13 @@ namespace ALForm
             tsProgBar.Value = 0;
             tsLabel.Text = oradb.Credentials.UserId + "@" + oradb.Credentials.DataSource;
             statStrip.Refresh();
+            dgvData.DataSource = null;
+            dgvData.Refresh();
 
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
+
                 dgvData.DataSource = oradb.runQuery(pSql);
                 dgvData.ReadOnly = true;
                 dgvData.Refresh();
@@ -53,6 +63,10 @@ namespace ALForm
             {
                 MessageBox.Show(e.Message, "SQL - Error");
             }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
 
         private void ALForm_Resize(object sender, EventArgs e)
@@ -62,6 +76,9 @@ namespace ALForm
             dgvData.Width = Width - mDgvWidth;
             dgvData.Height = Height - mDgvHeight;
             rtxtQuery.Width = Width - mRtxtWidth;
+            //rtxtQuery.Height = splitContainer.SplitterDistance - mRtxtHeight;
+            splitContainer.Width = Width - mSplWidth;
+            splitContainer.Height = Height - mSplHeight;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -107,5 +124,6 @@ namespace ALForm
                 e.Graphics.DrawString(idx, Font, SystemBrushes.ControlText, headerBounds, format);
             }
         }
+
     }
 }
