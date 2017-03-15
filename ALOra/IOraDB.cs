@@ -17,6 +17,7 @@ namespace ALOra
         void addCommand();
         void addCommand(string pStmt);
         void beginTrans();
+        void breakRunning();
         void commitTrans(bool pPreserveStmts = false);
         void execCommands(bool pUseTransaction = true);
         int execStmt();

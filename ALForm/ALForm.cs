@@ -29,7 +29,7 @@ namespace ALForm
             mBtnLeft[(int) MyButtonts.btnRun] = Width - btnRun.Left;
             mBtnLeft[(int)MyButtonts.btnExit] = Width - btnExit.Left;
             mDgvWidth = Width - dgvData.Width;
-            mDgvHeight = Height - dgvData.Height;
+            mDgvHeight = Height - dgvData.Height - splitContainer.SplitterDistance;
             mRtxtWidth = Width - rtxtQuery.Width;
             mRtxtHeight = splitContainer.SplitterDistance - rtxtQuery.Height;
             mSplWidth = Width - splitContainer.Width;
@@ -74,9 +74,7 @@ namespace ALForm
             btnRun.Left = Width - mBtnLeft[(int)MyButtonts.btnRun];
             btnExit.Left = Width - mBtnLeft[(int)MyButtonts.btnExit];
             dgvData.Width = Width - mDgvWidth;
-            dgvData.Height = Height - mDgvHeight;
             rtxtQuery.Width = Width - mRtxtWidth;
-            //rtxtQuery.Height = splitContainer.SplitterDistance - mRtxtHeight;
             splitContainer.Width = Width - mSplWidth;
             splitContainer.Height = Height - mSplHeight;
         }
@@ -125,5 +123,10 @@ namespace ALForm
             }
         }
 
+        private void splitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            rtxtQuery.Height = e.SplitY - mRtxtHeight;
+            dgvData.Height = Height - e.SplitY - mDgvHeight;
+        }
     }
 }

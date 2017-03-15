@@ -8,8 +8,10 @@ namespace ALOra
     public class OraDB : IOraDB
     {
         /* Class members */
+        private bool mCanceled = false;
         private Credentials mCredendials = new Credentials();
         private List<OracleCommand> mCommands;
+        private OracleCommand mRunningCmd;
         private OracleConnection mConnection;
         private OracleTransaction mTransaction;
         private string mSqlStmt;
@@ -88,6 +90,12 @@ namespace ALOra
             mTransaction = mConnection.BeginTransaction();
         }
 
+        public void breakRunning()
+        {
+            mCanceled = true;
+            mRunningCmd.Cancel();
+        }
+
         public void commitTrans(bool pPreserveStmts = false)
         {
             mTransaction.Commit();
@@ -124,13 +132,14 @@ namespace ALOra
 
             OracleConnection conn = new OracleConnection();
             conn.ConnectionString = ConnectString;
+            conn.Open();
 
-            OracleCommand sqlCmd = getCommand(conn, pStmt);
-
-            retval = sqlCmd.ExecuteNonQuery();
+            mCanceled = false;
+            mRunningCmd = getCommand(conn, pStmt);
+            retval = mRunningCmd.ExecuteNonQuery();
 
             conn.Close();
-            sqlCmd.Dispose();
+            mRunningCmd.Dispose();
             conn.Dispose();
 
             return retval;
@@ -204,17 +213,24 @@ namespace ALOra
         {
             OracleConnection conn = new OracleConnection();
             conn.ConnectionString = ConnectString;
+            conn.Open();
 
+            mCanceled = false;
+            mRunningCmd = getCommand(conn, pSql);
             DataTable dt = new DataTable();
-            OracleCommand sqlCmd = getCommand(conn, pSql);
-            OracleDataAdapter sqlDataAdap = new OracleDataAdapter(sqlCmd);
+            OracleDataReader dataReader = mRunningCmd.ExecuteReader();
 
-            sqlDataAdap.Fill(dt);
+            if (!mCanceled)
+            {
+                dt.Load(dataReader);
+            }
 
+            dataReader.Close();
             conn.Close();
-            sqlDataAdap.Dispose();
-            sqlCmd.Dispose();
+            dataReader.Dispose();
+            mRunningCmd.Dispose();
             conn.Dispose();
+
             return dt;
         }
 
