@@ -1,0 +1,5 @@
+Y:\Share\git\ALForm\ALOra\bin\Debug\ClassLibrary1.dll
+Y:\Share\git\ALForm\ALOra\bin\Debug\ClassLibrary1.pdb
+Y:\Share\git\ALForm\ALOra\bin\Debug\Oracle.DataAccess.dll
+Y:\Share\git\ALForm\ALOra\obj\Debug\ClassLibrary1.dll
+Y:\Share\git\ALForm\ALOra\obj\Debug\ClassLibrary1.pdb

@@ -1,0 +1,12 @@
+Y:\Share\git\ALForm\ALForm\bin\Debug\ALForm.exe.config
+Y:\Share\git\ALForm\ALForm\bin\Debug\ALForm.exe
+Y:\Share\git\ALForm\ALForm\bin\Debug\ALForm.pdb
+Y:\Share\git\ALForm\ALForm\bin\Debug\ClassLibrary1.dll
+Y:\Share\git\ALForm\ALForm\bin\Debug\Oracle.DataAccess.dll
+Y:\Share\git\ALForm\ALForm\bin\Debug\ClassLibrary1.pdb
+Y:\Share\git\ALForm\ALForm\obj\Debug\ALForm.csprojResolveAssemblyReference.cache
+Y:\Share\git\ALForm\ALForm\obj\Debug\ALForm.ALForm.resources
+Y:\Share\git\ALForm\ALForm\obj\Debug\ALForm.Properties.Resources.resources
+Y:\Share\git\ALForm\ALForm\obj\Debug\ALForm.csproj.GenerateResource.Cache
+Y:\Share\git\ALForm\ALForm\obj\Debug\ALForm.exe
+Y:\Share\git\ALForm\ALForm\obj\Debug\ALForm.pdb
